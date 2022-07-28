@@ -3,4 +3,4 @@ project(LabProgToDoListMarcoRF)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(LabProgToDoListMarcoRF main.cpp)
+add_executable(LabProgToDoListMarcoRF main.cpp TodoItem.cpp TodoItem.h)
