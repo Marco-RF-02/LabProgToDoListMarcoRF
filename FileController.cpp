@@ -51,3 +51,27 @@ void FileController::readFile() {
 }
 
 
+void FileController::eraseFileLine( const std::string &eraseLine) {
+    std::string line;
+    std::ifstream fin;
+
+    fin.open(fileName);
+    // contents of path must be copied to a temp file then
+    // renamed back to the path file
+    std::ofstream temp;
+    temp.open("temp.txt");
+
+    while (getline(fin, line)) {
+        // write all lines to temp other than the line marked for erasing
+        if (line != eraseLine)
+            temp << line << std::endl;
+    }
+
+    temp.close();
+    fin.close();
+
+    // required conversion for remove and rename functions
+    const char * p = fileName.c_str();
+    remove(p);
+    rename("temp.txt", p);
+}

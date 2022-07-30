@@ -16,6 +16,7 @@ public:
 
     void writeToFile( const std::string &dataLine);
     void readFile();
+    void eraseFileLine(const std::string& eraseLine);
 
     const std::string &getFileName() const;
 
