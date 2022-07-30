@@ -9,14 +9,17 @@
 
 class TodoItem {
 public:
-    TodoItem(): id(0), completed(false){};
+    TodoItem() = default;
     ~TodoItem() = default;
+
+
 
 private:
     int id;
     std::string title;
     bool completed;
     std::string description;
+
 
 };
 
