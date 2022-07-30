@@ -12,13 +12,17 @@ void FileController::writeToFile( const std::string& dataLine){
     std::fstream myFile;
     myFile.open(fileName,std::ios::app );
 
-    if (myFile.fail()){
-        std::cerr <<"Error occurred while opening the file..."<<std::endl;
-        exit(1);
-    }
-    if (myFile.is_open()){
-        myFile <<dataLine<<std::endl;
-        myFile.close();
+    if(dataLine!=""){
+        if (myFile.fail()){
+            std::cerr <<"Error occurred while opening the file..."<<std::endl;
+            exit(1);
+        }
+        if (myFile.is_open()){
+            myFile <<dataLine<<std::endl;
+            myFile.close();
+        }
+    }else{
+        std::cerr<<"INPUT COMMAND NOT AVAILABLE. . . try again"<<std::endl;
     }
 }
 

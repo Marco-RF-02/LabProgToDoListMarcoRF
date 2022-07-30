@@ -5,40 +5,64 @@
 #include "FileController.h"
 
 int main() {
-    /*
-    using namespace std;
-    fstream myFile;
-    myFile.open("TodoTextFile.txt",ios::out );
-    if (myFile.fail()){
-        cerr <<"Error occurred while opening the file..."<<endl;
-        exit(1);
-    }
-    if (myFile.is_open()){
-        myFile <<"Hello \n";
-        myFile <<"This is the second line"<<endl;
-        myFile.close();
-    }
-    myFile.open("TodoTextFile.txt", ios::app );
-    if (myFile.is_open()){
-        myFile <<"Hello2\n";
-        myFile.close();
-    }
-    myFile.open("TodoTextFile.txt", ios::in );
-    if (myFile.is_open()){
-        string myLine;
-        while(getline(myFile,myLine )){
-            cout<< myLine<<endl;
-        }
-        myFile.close();
-    }
-*/
 
+    std::string command;
+    std::string input;
     std::string file="TodoTextFile.txt";
     FileController fileController(file);
 
-    fileController.readFile();
+    while (command!="q")
+    {
+        std::cout<<"This is your todo List menu"<<std::endl;
+        std::cout<<"What would you like to do?"<<std::endl;
+        std::cout<<"Insert the letter:"<<std::endl;
+        std::cout<<"[q] Quit"<<std::endl;
+        std::cout<<"[a] Add todo"<<std::endl;
+        std::cout<<"[b] Delete todo"<<std::endl;
+        std::cout<<"[c] Change completed status"<<std::endl;
+        std::cout<<"[d] Show completed todo"<<std::endl;
+        std::cout<<"[e] Show uncompleted todo"<<std::endl;
+        std::cout<<"[f] Show all "<<std::endl;
+        std::cin>>command;
 
-   fileController.eraseFileLine("Do something 2");
+
+        if(command=="q") {
+            break;
+        }else
+        if(command=="a"){
+            std::cin.ignore(1000, '\n');
+            std::cout<<"Insert todo: "<<std::endl;
+            getline(std::cin, input);
+            fileController.writeToFile(input);
+            std::cout<<"---------------------"<<std::endl;
+        }else
+        if(command=="b"){
+
+        }else
+        if(command=="c"){
+
+        }else
+        if(command=="d"){
+
+        }else
+        if(command=="e"){
+
+        }else
+        if(command=="f") {
+            fileController.readFile();
+            std::cout<<"---------------------"<<std::endl;
+        }else{
+            std::cerr<<"INPUT COMMAND NOT AVAILABLE. . . try again"<<std::endl;
+        }
+    }
+
+
+  //  std::string file="TodoTextFile.txt";
+  //  FileController fileController(file);
+
+  //  fileController.readFile();
+
+  // fileController.eraseFileLine("Do something 2");
 
 
 
