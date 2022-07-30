@@ -12,9 +12,10 @@
 class FileController {
 public:
 
-    FileController(const std::string &fileName);
+    explicit FileController(const std::string &fileName);
 
     void writeToFile( const std::string &dataLine);
+    void readFile();
 
     const std::string &getFileName() const;
 

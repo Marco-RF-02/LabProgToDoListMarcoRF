@@ -35,7 +35,11 @@ int main() {
 
     std::string file="TodoTextFile.txt";
     FileController fileController(file);
-    fileController.writeToFile("Do something");
+    fileController.writeToFile("Do something 1");
+    fileController.writeToFile("Do something 2");
+    fileController.writeToFile("Do something 3");
+    fileController.readFile();
+
 
 
 
