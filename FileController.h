@@ -8,6 +8,9 @@
 #include<string>
 #include"TodoItem.h"
 #include <fstream>
+#include<memory>
+#include <vector>
+
 
 class FileController {
 public:
@@ -15,13 +18,15 @@ public:
     explicit FileController(const std::string &fileName);
 
     void writeToFile( const std::string &dataLine);
-    void readFile();
+    std::vector<TodoItem> readFile();
     void eraseFileLine(const std::string& eraseLine);
 
     const std::string &getFileName() const;
 
     void setFileName(const std::string &fileName);
-
+    std::string parseLine(std::string id, std::string title,std::string completed,std::string description);
+    std::string getNextId(std::vector<TodoItem> vect);
+    TodoItem findTodoById(std::vector<TodoItem> vect, int id);
 
 private:
      std::string fileName;

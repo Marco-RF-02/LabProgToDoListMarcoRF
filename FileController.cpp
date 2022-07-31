@@ -4,9 +4,36 @@
 
 #include "FileController.h"
 #include <iostream>
+#include <vector>
+#include <sstream>
+
+
+std::string FileController:: parseLine(std::string id, std::string title,std::string completed,std::string description){
+    std::string parsedLine;
+    parsedLine=id+"|"+title+"|"+completed+"|"+description;
+   // std::cout <<parsedLine<<std::endl;
+
+    return parsedLine;
+}
 
 
 
+std::string FileController:: getNextId(std::vector<TodoItem> vect){
+
+    int lastid = 0;
+
+    for(int i = 0; i<vect.size(); i++)
+        {
+            if(vect[i].getId()>lastid)
+            {
+                lastid=vect[i].getId();
+            }
+        }
+    lastid ++;
+    return std::to_string(lastid);
+
+
+}
 
 void FileController::writeToFile( const std::string& dataLine){
     std::fstream myFile;
@@ -37,9 +64,14 @@ void FileController::setFileName(const std::string &fileName) {
 
 FileController::FileController(const std::string &fileName) : fileName(fileName) {}
 
-void FileController::readFile() {
+
+
+std::vector<TodoItem> FileController::readFile() {
+
     std::fstream myFile;
     myFile.open(fileName,std::ios::in );
+    //new
+    std::vector<TodoItem> vect;
 
     if (myFile.fail()){
         std::cerr <<"Error occurred while opening the file..."<<std::endl;
@@ -48,13 +80,37 @@ void FileController::readFile() {
     if (myFile.is_open()){
         std::string line;
         while(std::getline(myFile,line)){
-            std::cout <<line<<std::endl;
+           // std::cout <<line<<std::endl;
+
+            //new
+            if(line!="") {
+                std::stringstream test(line);
+                TodoItem objtodo;
+                std::string segment;
+
+                std::getline(test, segment, '|');
+                objtodo.setId(stoi(segment));
+                // std::cout << segment << std::endl;
+                std::getline(test, segment, '|');
+                objtodo.setTitle(segment);
+                // std::cout << segment << std::endl;
+                std::getline(test, segment, '|');
+                objtodo.setCompleted(stoi(segment));
+                // std::cout << segment << std::endl;
+                std::getline(test, segment, '|');
+                objtodo.setDescription(segment);
+                //std::cout << segment << std::endl;
+
+                vect.push_back(objtodo);
+            }
         }
         myFile.close();
     }
+    return vect;
+
 }
 
-
+//to modify
 void FileController::eraseFileLine( const std::string &eraseLine) {
     std::string line;
     std::ifstream fin;
@@ -78,4 +134,19 @@ void FileController::eraseFileLine( const std::string &eraseLine) {
     const char * p = fileName.c_str();
     remove(p);
     rename("temp.txt", p);
+}
+
+TodoItem FileController::findTodoById(std::vector<TodoItem> vect, int id) {
+    TodoItem todoItem;
+    for(int i = 0; i<vect.size() ;i++){
+        if(vect[i].getId()==id){
+            todoItem.setId(vect[i].getId());
+            todoItem.setDescription(vect[i].getDescription());
+            todoItem.setCompleted(vect[i].isCompleted());
+            todoItem.setTitle(vect[i].getTitle());
+        }
+    }
+
+
+    return todoItem;
 }

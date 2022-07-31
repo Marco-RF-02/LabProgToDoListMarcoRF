@@ -9,10 +9,26 @@
 
 class TodoItem {
 public:
-    TodoItem() = default;
+    TodoItem(int id, std::string t, std::string descr, bool p = false);
     ~TodoItem() = default;
 
+    TodoItem();
 
+    int getId() const;
+
+    void setId(int id);
+
+    const std::string &getTitle() const;
+
+    void setTitle(const std::string &title);
+
+    bool isCompleted() const;
+
+    void setCompleted(bool completed);
+
+    const std::string &getDescription() const;
+
+    void setDescription(const std::string &description);
 
 private:
     int id;
