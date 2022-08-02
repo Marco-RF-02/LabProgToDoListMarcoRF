@@ -31,6 +31,7 @@ public:
     std::string getNextId(std::vector<TodoItem> vect);
     TodoItem findTodoById(std::vector<TodoItem> vect, int id);
     bool is_digits(const std::string &str);
+    std::string completedStatus(bool input);
 private:
      std::string fileName;
 
