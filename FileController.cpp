@@ -80,7 +80,6 @@ std::vector<TodoItem> FileController::readFile() {
     if (myFile.is_open()){
         std::string line;
         while(std::getline(myFile,line)){
-           // std::cout <<line<<std::endl;
 
             //new
             if(line!="") {
@@ -90,16 +89,12 @@ std::vector<TodoItem> FileController::readFile() {
 
                 std::getline(test, segment, '|');
                 objtodo.setId(stoi(segment));
-                // std::cout << segment << std::endl;
                 std::getline(test, segment, '|');
                 objtodo.setTitle(segment);
-                // std::cout << segment << std::endl;
                 std::getline(test, segment, '|');
                 objtodo.setCompleted(stoi(segment));
-                // std::cout << segment << std::endl;
                 std::getline(test, segment, '|');
                 objtodo.setDescription(segment);
-                //std::cout << segment << std::endl;
 
                 vect.push_back(objtodo);
             }
@@ -110,7 +105,84 @@ std::vector<TodoItem> FileController::readFile() {
 
 }
 
-//to modify
+
+std::vector<TodoItem> FileController::readCompleted() {
+    std::fstream myFile;
+    myFile.open(fileName,std::ios::in );
+    //new
+    std::vector<TodoItem> vect;
+
+    if (myFile.fail()){
+        std::cerr <<"Error occurred while opening the file..."<<std::endl;
+        exit(1);
+    }
+    if (myFile.is_open()){
+        std::string line;
+        while(std::getline(myFile,line)){
+
+            //new
+            if(line!="") {
+                std::stringstream test(line);
+                TodoItem objtodo;
+                std::string segment;
+
+                std::getline(test, segment, '|');
+                objtodo.setId(stoi(segment));
+                std::getline(test, segment, '|');
+                objtodo.setTitle(segment);
+                std::getline(test, segment, '|');
+                objtodo.setCompleted(stoi(segment));
+                std::getline(test, segment, '|');
+                objtodo.setDescription(segment);
+                if (objtodo.isCompleted()) {
+                    vect.push_back(objtodo);
+                }
+            }
+        }
+        myFile.close();
+    }
+    return vect;
+}
+
+std::vector<TodoItem> FileController::readUncompleted() {
+    std::fstream myFile;
+    myFile.open(fileName,std::ios::in );
+    //new
+    std::vector<TodoItem> vect;
+
+    if (myFile.fail()){
+        std::cerr <<"Error occurred while opening the file..."<<std::endl;
+        exit(1);
+    }
+    if (myFile.is_open()){
+        std::string line;
+        while(std::getline(myFile,line)){
+
+            //new
+            if(line!="") {
+                std::stringstream test(line);
+                TodoItem objtodo;
+                std::string segment;
+
+                std::getline(test, segment, '|');
+                objtodo.setId(stoi(segment));
+                std::getline(test, segment, '|');
+                objtodo.setTitle(segment);
+                std::getline(test, segment, '|');
+                objtodo.setCompleted(stoi(segment));
+                std::getline(test, segment, '|');
+                objtodo.setDescription(segment);
+                if (!objtodo.isCompleted()) {
+                    vect.push_back(objtodo);
+                }
+            }
+        }
+        myFile.close();
+    }
+    return vect;
+}
+
+
 void FileController::eraseFileLine( const std::string &eraseLine) {
     std::string line;
     std::ifstream fin;
@@ -150,3 +222,8 @@ TodoItem FileController::findTodoById(std::vector<TodoItem> vect, int id) {
 
     return todoItem;
 }
+bool FileController:: is_digits(const std::string &str)
+{
+    return str.find_first_not_of("0123456789") == std::string::npos;
+}
+

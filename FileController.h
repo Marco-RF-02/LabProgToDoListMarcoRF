@@ -19,6 +19,9 @@ public:
 
     void writeToFile( const std::string &dataLine);
     std::vector<TodoItem> readFile();
+    std::vector<TodoItem> readCompleted();
+    std::vector<TodoItem> readUncompleted();
+
     void eraseFileLine(const std::string& eraseLine);
 
     const std::string &getFileName() const;
@@ -27,7 +30,7 @@ public:
     std::string parseLine(std::string id, std::string title,std::string completed,std::string description);
     std::string getNextId(std::vector<TodoItem> vect);
     TodoItem findTodoById(std::vector<TodoItem> vect, int id);
-
+    bool is_digits(const std::string &str);
 private:
      std::string fileName;
 
