@@ -8,17 +8,15 @@
 #include <sstream>
 
 
-std::string FileController:: parseLine(std::string id, std::string title,std::string completed,std::string description){
+std::string FileController:: parseLine(const std::string& id, const std::string& title, const std::string& completed, const std::string& description){
     std::string parsedLine;
-    parsedLine=id+"|"+title+"|"+completed+"|"+description;
-   // std::cout <<parsedLine<<std::endl;
-
-    return parsedLine;
+    parsedLine=id+"|"+title+"|"+completed+"|"+description; // "|" is the separator
+    return parsedLine; // this method return a parsed line
 }
 
 
 
-std::string FileController:: getNextId(std::vector<TodoItem> vect){
+std::string FileController:: getNextId(std::vector<TodoItem> vect){ // get new id by making it impossible to have 2 identical id
 
     int lastid = 0;
 
@@ -30,22 +28,20 @@ std::string FileController:: getNextId(std::vector<TodoItem> vect){
             }
         }
     lastid ++;
-    return std::to_string(lastid);
-
-
+    return std::to_string(lastid); // new id is incremented by 1 compared to last id registered in the vector
 }
 
-void FileController::writeToFile( const std::string& dataLine){
+void FileController::writeToFile( const std::string& dataLine){ // this method is used to write to file
     std::fstream myFile;
-    myFile.open(fileName,std::ios::app );
+    myFile.open(fileName,std::ios::app ); // file gets opened with append mode
 
     if(dataLine!=""){
-        if (myFile.fail()){
+        if (myFile.fail()){ // control over file opening success
             std::cerr <<"Error occurred while opening the file..."<<std::endl;
             exit(1);
         }
         if (myFile.is_open()){
-            myFile <<dataLine<<std::endl;
+            myFile <<dataLine<<std::endl; // writes line into file
             myFile.close();
         }
     }else{
@@ -65,15 +61,13 @@ void FileController::setFileName(const std::string &fileName) {
 FileController::FileController(const std::string &fileName) : fileName(fileName) {}
 
 
-
-std::vector<TodoItem> FileController::readFile() {
+std::vector<TodoItem> FileController::readFile() { // method used to read from file and put the various todoitems into a vector
 
     std::fstream myFile;
-    myFile.open(fileName,std::ios::in );
-    //new
+    myFile.open(fileName,std::ios::in ); // file gets opened in input mode
     std::vector<TodoItem> vect;
 
-    if (myFile.fail()){
+    if (myFile.fail()){ // control over the file opening success
         std::cerr <<"Error occurred while opening the file..."<<std::endl;
         exit(1);
     }
@@ -81,12 +75,13 @@ std::vector<TodoItem> FileController::readFile() {
         std::string line;
         while(std::getline(myFile,line)){
 
-            //new
             if(line!="") {
                 std::stringstream test(line);
                 TodoItem objtodo;
                 std::string segment;
 
+                // in order to read properly from file,
+                // we need to decide a specific criteria
                 std::getline(test, segment, '|');
                 objtodo.setId(stoi(segment));
                 std::getline(test, segment, '|');
@@ -96,21 +91,23 @@ std::vector<TodoItem> FileController::readFile() {
                 std::getline(test, segment, '|');
                 objtodo.setDescription(segment);
 
-                vect.push_back(objtodo);
+                vect.push_back(objtodo); // after receiving all info, the object is pushed into the vector
             }
         }
-        myFile.close();
+        myFile.close(); // close the file
     }
     return vect;
 
 }
 
 
-std::vector<TodoItem> FileController::readCompleted() {
+std::vector<TodoItem> FileController::readCompleted() { // read completed todoitems from file
     std::fstream myFile;
     myFile.open(fileName,std::ios::in );
-    //new
+
     std::vector<TodoItem> vect;
+
+
 
     if (myFile.fail()){
         std::cerr <<"Error occurred while opening the file..."<<std::endl;
@@ -134,6 +131,7 @@ std::vector<TodoItem> FileController::readCompleted() {
                 objtodo.setCompleted(stoi(segment));
                 std::getline(test, segment, '|');
                 objtodo.setDescription(segment);
+
                 if (objtodo.isCompleted()) {
                     vect.push_back(objtodo);
                 }
@@ -141,10 +139,12 @@ std::vector<TodoItem> FileController::readCompleted() {
         }
         myFile.close();
     }
+
+
     return vect;
 }
 
-std::vector<TodoItem> FileController::readUncompleted() {
+std::vector<TodoItem> FileController::readUncompleted() { // read only uncompleted todoitems from file
     std::fstream myFile;
     myFile.open(fileName,std::ios::in );
     //new
@@ -172,6 +172,7 @@ std::vector<TodoItem> FileController::readUncompleted() {
                 objtodo.setCompleted(stoi(segment));
                 std::getline(test, segment, '|');
                 objtodo.setDescription(segment);
+
                 if (!objtodo.isCompleted()) {
                     vect.push_back(objtodo);
                 }
@@ -183,7 +184,7 @@ std::vector<TodoItem> FileController::readUncompleted() {
 }
 
 
-void FileController::eraseFileLine( const std::string &eraseLine) {
+void FileController::eraseFileLine( const std::string &eraseLine) { // method used to erase a chosen line from a text file
     std::string line;
     std::ifstream fin;
 
@@ -208,7 +209,7 @@ void FileController::eraseFileLine( const std::string &eraseLine) {
     rename("temp.txt", p);
 }
 
-TodoItem FileController::findTodoById(std::vector<TodoItem> vect, int id) {
+TodoItem FileController::findTodoById(std::vector<TodoItem> vect, int id) { // find todoitem by using its id
     TodoItem todoItem;
     for(int i = 0; i<vect.size() ;i++){
         if(vect[i].getId()==id){
@@ -222,16 +223,18 @@ TodoItem FileController::findTodoById(std::vector<TodoItem> vect, int id) {
 
     return todoItem;
 }
-bool FileController:: is_digits(const std::string &str)
+bool FileController:: is_digits(const std::string &str) // this method controls if user is writing only numbers
 {
     return str.find_first_not_of("0123456789") == std::string::npos;
 }
-std::string FileController::completedStatus(bool completed){
+std::string FileController::completedStatus(bool completed){ // this method is used just for graphical purpose
+    std::string compStat="not found";
     if(!completed){
-        return "No";
+        compStat="No"; // show "No" if todoitem is not completed yet
     }
     if(completed){
-        return "Yes";
+        compStat="Yes";// show "Yes" if todoitem is completed
     }
+    return compStat;
 }
 

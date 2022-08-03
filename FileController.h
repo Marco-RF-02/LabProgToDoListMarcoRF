@@ -27,7 +27,7 @@ public:
     const std::string &getFileName() const;
 
     void setFileName(const std::string &fileName);
-    std::string parseLine(std::string id, std::string title,std::string completed,std::string description);
+    std::string parseLine(const std::string& id, const std::string& title,const std::string& completed,const std::string& description);
     std::string getNextId(std::vector<TodoItem> vect);
     TodoItem findTodoById(std::vector<TodoItem> vect, int id);
     bool is_digits(const std::string &str);
