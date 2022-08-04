@@ -3,4 +3,9 @@ project(LabProgToDoListMarcoRF)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(LabProgToDoListMarcoRF main.cpp TodoItem.cpp TodoItem.h FileController.cpp FileController.h)
+add_subdirectory(test)
+
+set(SOURCE_FILES TodoItem.cpp TodoItem.h FileController.cpp FileController.h)
+add_executable(LabProgToDoListMarcoRF main.cpp )
+add_library(core ${SOURCE_FILES})
+target_link_libraries(LabProgToDoListMarcoRF core)

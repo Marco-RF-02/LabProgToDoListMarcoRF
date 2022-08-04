@@ -227,6 +227,7 @@ bool FileController:: is_digits(const std::string &str) // this method controls 
 {
     return str.find_first_not_of("0123456789") == std::string::npos;
 }
+
 std::string FileController::completedStatus(bool completed){ // this method is used just for graphical purpose
     std::string compStat="not found";
     if(!completed){
