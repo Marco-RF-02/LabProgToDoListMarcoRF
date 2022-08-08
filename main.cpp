@@ -12,14 +12,14 @@ std::string removeSpaces(std::string input) // this func is used to remove space
     return input;
 }
 
-void printTodoList(std::vector<TodoItem> vect, FileController fileController){  // print todoitemvector
+void printTodoList(const std::vector<TodoItem>& vect, FileController fileController){  // print todoitemvector
 
-    for(int i=0; i<vect.size();i++)
+    for(auto & i : vect)
     {
-        std::cout<< "["<<vect[i].getId()<< "] - ";
-        std::cout<<vect[i].getTitle()<<std::endl;
-        std::cout<<"Completed: "<<fileController.completedStatus(vect[i].isCompleted())<<std::endl;
-        std::cout<<vect[i].getDescription()<<std::endl;
+        std::cout<< "["<<i.getId()<< "] - ";
+        std::cout<<i.getTitle()<<std::endl;
+        std::cout<<"Completed: "<<fileController.completedStatus(i.isCompleted())<<std::endl;
+        std::cout<<i.getDescription()<<std::endl;
         std::cout<<"---------------------"<<std::endl;
     }
     std::cout<<"---------------------"<<std::endl;
@@ -71,13 +71,13 @@ void deleteTodo(FileController fileController){
     std::cout << "Insert the id of the todo you want to delete: " << std::endl;
     input = getInputText();
 
-    if(fileController.is_digits(input)) {
+    if(fileController.isDigits(input)) {
         //find item to delete
         TodoItem todoItem;
         todoItem = fileController.findTodoById(fileController.readFile(), stoi(input));
 
         //check if it is found
-        if (todoItem.getDescription() == "" && todoItem.getTitle() == "" && todoItem.isCompleted() == 0) {
+        if (todoItem.getDescription().empty() && todoItem.getTitle().empty() && todoItem.isCompleted() == 0) {
             std::cout << "todo not found" << std::endl;
         } else {
 
@@ -105,13 +105,13 @@ void changeCompletedStatus(FileController fileController){
     input = getInputText();
     input = removeSpaces(input);
 
-    if(fileController.is_digits(input)) {
+    if(fileController.isDigits(input)) {
         //find item to modify its status
         TodoItem todoItem;
         todoItem = fileController.findTodoById(fileController.readFile(), stoi(input));
 
         //check if it is found
-        if (todoItem.getDescription() == "" && todoItem.getTitle() == "" && todoItem.isCompleted() == 0) {
+        if (todoItem.getDescription().empty() && todoItem.getTitle().empty() && todoItem.isCompleted() == 0) {
             std::cout << "todo not found" << std::endl;
         } else {
             // a new todoitem is added with same specs of the one which needs to be changed,
@@ -125,7 +125,7 @@ void changeCompletedStatus(FileController fileController){
             inpCompStatus = getInputText();
             inpCompStatus = removeSpaces(inpCompStatus);
 
-            if(fileController.is_digits(inpCompStatus)) {
+            if(fileController.isDigits(inpCompStatus)) {
                 if(inpCompStatus=="0"||inpCompStatus=="1") {
 
                     //delete the old todoitem
@@ -183,8 +183,6 @@ int main() {
 
     while(menu)
     {
-
-
         //menu
         std::cout<<"This is your todo List menu"<<std::endl;
         std::cout<<"What would you like to do?"<<std::endl;
@@ -204,7 +202,7 @@ int main() {
             std::cerr << "Input error. . . \n";
         }
 
-        if(fileController.is_digits(command)) {
+        if(fileController.isDigits(command)) {
             try { // try exceptions consequently to user input
                 int c = std::stoi(command);
 

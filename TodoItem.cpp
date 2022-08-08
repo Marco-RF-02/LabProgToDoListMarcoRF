@@ -7,7 +7,6 @@
 
 TodoItem::TodoItem(int id, std::string t, std::string descr,bool c): id(id), title(t),completed(c),description(descr) {}
 
-TodoItem::TodoItem() {}
 
 int TodoItem::getId() const {
     return id;

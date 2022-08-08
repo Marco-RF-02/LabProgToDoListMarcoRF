@@ -11,8 +11,7 @@ class TodoItem {
 public:
     TodoItem(int id, std::string t, std::string descr, bool p = false);
     ~TodoItem() = default;
-
-    TodoItem();
+    TodoItem() = default;
 
     int getId() const;
 
@@ -35,9 +34,6 @@ private:
     std::string title;
     bool completed;
     std::string description;
-
-
 };
-
 
 #endif //LABPROGTODOLISTMARCORF_TODOITEM_H

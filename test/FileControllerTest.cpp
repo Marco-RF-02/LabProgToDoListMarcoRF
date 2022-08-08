@@ -13,8 +13,8 @@ TEST(FileController, parseLineTest) {
 TEST(FileController, is_digitsTest) {
 
 FileController fileController("test");
-    ASSERT_EQ(true,fileController.is_digits("123"));
-    ASSERT_NE(true,fileController.is_digits("abc"));
+    ASSERT_EQ(true,fileController.isDigits("123"));
+    ASSERT_NE(true,fileController.isDigits("abc"));
 
 }
 

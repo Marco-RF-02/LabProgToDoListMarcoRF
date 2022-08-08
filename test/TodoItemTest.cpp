@@ -30,7 +30,7 @@ TEST(TodoItem, getDescriptionTest) {
 }
 TEST(TodoItem, isCompletedTest) {
     TodoItem t;
-    t.setCompleted(1);
+    t.setCompleted(true);
     ASSERT_EQ(1,t.isCompleted());
     ASSERT_NE(0,t.isCompleted());
 }
