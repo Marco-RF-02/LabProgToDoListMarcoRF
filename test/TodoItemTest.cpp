@@ -10,12 +10,7 @@ TEST(TodoItem, DefaultConstructor) {
     ASSERT_FALSE(t.isCompleted());
 }
 
-TEST(TodoItem, getIdTest) {
-    TodoItem t;
-    t.setId(1);
-    ASSERT_EQ(1,t.getId());
-    ASSERT_NE(2,t.getId());
-}
+
 TEST(TodoItem, getTitleTest) {
     TodoItem t;
     t.setTitle("test");

@@ -7,15 +7,21 @@
 #include <vector>
 #include <sstream>
 
-
-std::string FileController:: parseLine(const std::string& id, const std::string& title, const std::string& completed, const std::string& description){
+std::string FileController:: parseDate(int day, int month,int year){
     std::string parsedLine;
-    parsedLine=id+"|"+title+"|"+completed+"|"+description; // "|" is the separator
+    parsedLine= std::to_string(day)+"^"+ std::to_string(month)+"^"+ std::to_string(year); // "^" is the separator
+    return parsedLine; // this method return a parsed line for the date
+}
+
+std::string FileController:: parseLine(const std::string& title, const std::string& completed, const std::string& description, std:: string date, std:: string category){
+    std::string parsedLine;
+    parsedLine=title+"|"+completed+"|"+description+"|"+date+"|"+category; // "|" is the separator
     return parsedLine; // this method return a parsed line
 }
 
 
 
+/*
 std::string FileController:: getNextId(const std::vector<TodoItem>& vect){ // get new id by making it impossible to have 2 identical id
 
     int lastid = 0;
@@ -30,7 +36,7 @@ std::string FileController:: getNextId(const std::vector<TodoItem>& vect){ // ge
     lastid ++;
     return std::to_string(lastid); // new id is incremented by 1 compared to last id registered in the vector
 }
-
+*/
 void FileController::writeToFile( const std::string& dataLine){ // this method is used to write to file
     std::fstream myFile;
     myFile.open(fileName,std::ios::app ); // file gets opened with append mode
@@ -53,7 +59,7 @@ void FileController::writeToFile( const std::string& dataLine){ // this method i
 
 FileController::FileController(const std::string &fileName) : fileName(fileName) {}
 
-
+/*
 std::vector<TodoItem> FileController::readFile() { // method used to read from file and put the various todoitems into a vector
 
     std::fstream myFile;
@@ -92,7 +98,10 @@ std::vector<TodoItem> FileController::readFile() { // method used to read from f
     return vect;
 
 }
+*/
 
+
+/*
 std::vector<TodoItem> FileController::readCompleted() { // read completed todoitems from file
     std::fstream myFile;
     myFile.open(fileName,std::ios::in );
@@ -133,7 +142,10 @@ std::vector<TodoItem> FileController::readCompleted() { // read completed todoit
 
     return vect;
 }
+*/
 
+
+/*
 std::vector<TodoItem> FileController::readUncompleted() { // read only uncompleted todoitems from file
     std::fstream myFile;
     myFile.open(fileName,std::ios::in );
@@ -172,6 +184,8 @@ std::vector<TodoItem> FileController::readUncompleted() { // read only uncomplet
     }
     return vect;
 }
+*/
+
 
 void FileController::eraseFileLine( const std::string &eraseLine) { // method used to erase a chosen line from a text file
     std::string line;
@@ -197,6 +211,7 @@ void FileController::eraseFileLine( const std::string &eraseLine) { // method us
     rename("temp.txt", p);
 }
 
+/*
 TodoItem FileController::findTodoById(const std::vector<TodoItem>& vect, int id) { // find todoitem by using its id
     TodoItem todoItem;
     for(auto & i : vect){
@@ -209,11 +224,13 @@ TodoItem FileController::findTodoById(const std::vector<TodoItem>& vect, int id)
     }
     return todoItem;
 }
-
+*/
+/*
 bool FileController:: isDigits(const std::string &str) // this method controls if user is writing only numbers
 {
     return str.find_first_not_of("0123456789") == std::string::npos;
 }
+*/
 
 std::string FileController::completedStatus(bool completed){ // this method is used just for graphical purpose
     std::string compStat="not found";

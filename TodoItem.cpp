@@ -5,16 +5,8 @@
 #include "TodoItem.h"
 
 
-TodoItem::TodoItem(int id, std::string t, std::string descr,bool c): id(id), title(t),completed(c),description(descr) {}
+//TodoItem::TodoItem( std::string t, std::string descr,bool c): title(t),completed(c),description(descr) {}
 
-
-int TodoItem::getId() const {
-    return id;
-}
-
-void TodoItem::setId(int id) {
-    TodoItem::id = id;
-}
 
 const std::string &TodoItem::getTitle() const {
     return title;
@@ -39,3 +31,23 @@ const std::string &TodoItem::getDescription() const {
 void TodoItem::setDescription(const std::string &description) {
     TodoItem::description = description;
 }
+
+const Date &TodoItem::getDate() const {
+    return date;
+}
+
+void TodoItem::setDate(const Date &date) {
+    TodoItem::date = date;
+}
+
+const std::string &TodoItem::getCategory() const {
+    return category;
+}
+
+void TodoItem::setCategory(const std::string &category) {
+    TodoItem::category = category;
+}
+
+TodoItem::TodoItem(const std::string &title, bool completed, const std::string &description, const Date &date,
+                   const std::string &category) : title(title), completed(completed), description(description),
+                                                  date(date), category(category) {}

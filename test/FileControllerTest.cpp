@@ -6,23 +6,25 @@
 
 TEST(FileController, parseLineTest) {
     FileController fileController("test");
-    ASSERT_EQ("id|title|comp|desc",fileController.parseLine("id","title","comp","desc"));
-    ASSERT_NE("idtitlecompdesc",fileController.parseLine("id","title","comp","desc"));
+    ASSERT_EQ("title|comp|desc|1^1^111|category",fileController.parseLine("title","comp","desc","1^1^111","category"));
 }
-
+/*
 TEST(FileController, is_digitsTest) {
 
 FileController fileController("test");
     ASSERT_EQ(true,fileController.isDigits("123"));
-    ASSERT_NE(true,fileController.isDigits("abc"));
 
 }
-
+*/
 TEST(FileController, completedStatusTest) {
     FileController fileController("test");
     ASSERT_EQ("Yes",fileController.completedStatus(1));
-    ASSERT_NE("Yes",fileController.completedStatus(0));
     ASSERT_EQ("No",fileController.completedStatus(0));
-    ASSERT_NE("No",fileController.completedStatus(1));
+
+}
+TEST(FileController, parseDateTest) {
+    FileController fileController("test");
+    ASSERT_EQ("1^1^111",fileController.parseDate(1,1,111));
+
 
 }

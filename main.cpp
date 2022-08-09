@@ -1,9 +1,10 @@
 #include <iostream>
 #include<string>
-#include "TodoItem.h"
-#include "FileController.h"
-#include<algorithm>
 
+
+#include<algorithm>
+#include "Date.h"
+/*
 
 std::string removeSpaces(std::string input) // this func is used to remove spaces from string input
 {
@@ -171,10 +172,36 @@ void showAll(FileController fileController){ // show all todoitems
 
 
 }
+*/
+
+Date insetDate(){
+    int day=0, month=0, year=0;
+    std::cout << "please enter the date in this format day month year ""d m yyyy"" (ex. 1 1 2022)" << std::endl;
+    Date date;
+    while(true) {
+        std::cin >> day >> month >> year;
 
 
+        if (date.checkDate(day, month, year)) {
+            std::cout << "valid date"<<std::endl;
+            date.setDay(day);
+            date.setMonth(month);
+            date.setYear(year);
+            break;
+
+        } else {
+            std::cout << "Format or date not valid. try again"<<std::endl;
+        }
+
+    }
+    return date;
+}
 int main() {
 
+
+
+
+/*
     std::string command;
     std::string input;
     std::string file="TodoTextFile.txt";
@@ -243,5 +270,7 @@ int main() {
             std::cerr << "Input not valid. . . \n";
         }
     }
+    */
     return 0;
+
 }
