@@ -85,8 +85,6 @@ bool Date::checkDate(int day, int month, int year) {
     return false;
 }
 
-Date::Date() {}
-
 Date Date::deparseDate(const std::string& parsedDate) {
 
     Date date;

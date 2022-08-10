@@ -232,10 +232,16 @@ void addTodoItem(FileController fileController){ // add new todoitem
 
     //parsing line before writing into the text file
     parsedline = fileController.parseLine(title, std::to_string(0),description,fileController.parseDate(date.getDay(),date.getMonth(),date.getYear()),category);
+    std::string opparsedline = fileController.parseLine(title, std::to_string(1),description,fileController.parseDate(date.getDay(),date.getMonth(),date.getYear()),category);
 
-    //adding to the txtfile
-    fileController.writeToFile(parsedline);
-
+    //check if already added
+    Todolist todolist(fileController.readFile());
+    if(todolist.findByParsedLine(parsedline,opparsedline,fileController)){
+        std::cout << "Cannot fulfill the request, Sorry! the todo you want to add is already saved.  " << std::endl;
+    }else {
+        //adding to the txtfile
+        fileController.writeToFile(parsedline);
+    }
     std::cout<<"---------------------"<<std::endl;
 }
 
@@ -285,6 +291,10 @@ void showByCategory(FileController fileController, int c){
         }
 
     }
+    if(c==0)
+        std::cout<<"********** Total of Todo Not Completed: "<<std::to_string(todoList.countNotCompleted())<<" **************"<<std::endl;
+    if(c==1)
+        std::cout<<"********** Total of Todo Completed: "<<std::to_string(todoList.countCompleted())<<" **************"<<std::endl;
 
 
 }
@@ -402,12 +412,12 @@ void changeCompletedStatus(FileController fileController){
                                                                                    todoItem.getDate().getYear()),
                                                           todoItem.getCategory());
 
-                   //bool done = fileController.changeCompletedStatus(parsedline, newparsedline);
+                   bool done = fileController.changeCompletedStatus(parsedline, newparsedline);
 
-                /*    if(done) {
+                    if(done) {
                         std::cout<<"Update ->Done!"<<std::endl;
                     }
-*/
+
                 }else{
                     std::cerr << "input not valid. . ." << std::endl;
                 }

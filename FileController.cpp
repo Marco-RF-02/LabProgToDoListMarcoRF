@@ -61,10 +61,6 @@ void FileController::writeToFile( const std::string& dataLine){ // this method i
 }
 
 
-
-
-
-
 std::list<TodoItem> FileController::readFile() { // method used to read from file and put the various todoitems into a vector
 
          std::fstream myFile;
@@ -91,49 +87,6 @@ std::list<TodoItem> FileController::readFile() { // method used to read from fil
          }
          return todoList;
 }
-
-
-
-/*
-std::vector<TodoItem> FileController::readFile() { // method used to read from file and put the various todoitems into a vector
-
-    std::fstream myFile;
-    myFile.open(fileName,std::ios::in ); // file gets opened in input mode
-    std::vector<TodoItem> vect;
-
-    if (myFile.fail()){ // control over the file opening success
-        std::cerr <<"Error occurred while opening the file..."<<std::endl;
-        exit(1);
-    }
-    if (myFile.is_open()){
-        std::string line;
-        while(std::getline(myFile,line)){
-
-            if(!line.empty()) {
-                std::stringstream test(line);
-                TodoItem objtodo;
-                std::string segment;
-
-                // in order to read properly from file,
-                // we need to decide a specific criteria
-                std::getline(test, segment, '|');
-                objtodo.setId(stoi(segment));
-                std::getline(test, segment, '|');
-                objtodo.setTitle(segment);
-                std::getline(test, segment, '|');
-                objtodo.setCompleted(stoi(segment));
-                std::getline(test, segment, '|');
-                objtodo.setDescription(segment);
-
-                vect.push_back(objtodo); // after receiving all info, the object is pushed into the vector
-            }
-        }
-        myFile.close(); // close the file
-    }
-    return vect;
-
-}
-*/
 
 
 /*
@@ -292,19 +245,6 @@ std::list<std::string> FileController::categoryList() {
 }
 
 
-/*
-std::string FileController::completedStatus(bool completed){ // this method is used just for graphical purpose
-    std::string compStat="not found";
-    if(!completed){
-        compStat="No"; // show "No" if todoitem is not completed yet
-    }
-    if(completed){
-        compStat="Yes";// show "Yes" if todoitem is completed
-    }
-    return compStat;
-}
-*/
-
 bool FileController::eraseFileLine( const std::string &eraseLine) { // method used to erase a chosen line from a text file
     bool done= false;
     std::string line;
@@ -340,16 +280,38 @@ bool FileController::eraseFileLine( const std::string &eraseLine) { // method us
     return done;
 }
 
-/*
-bool FileController::changeCompletedStatus(std::string parsedLine, std::string newParsedLine) {
+
+bool FileController::changeCompletedStatus(const std::string& search_string, const std::string& replace_string) {
   bool done= false;
 
+    std::string inbuf;
+    std::fstream input_file("TodoTextFile.txt", std::ios::in);
+    std::ofstream output_file("result.txt");
 
-    openFile >> ExampleText;
-    openFile.replace(Example, "Hello");// the path of the file
-    ReadFile(openFile, Example);
+    while (!input_file.eof())
+    {
+        getline(input_file, inbuf);
 
-        return done;
+        int spot = inbuf.find(search_string);
+        if(spot >= 0)
+        {
+            std::string tmpstring = inbuf.substr(0,spot);
+            tmpstring += replace_string;
+            tmpstring += inbuf.substr(spot+search_string.length(), inbuf.length());
+            inbuf = tmpstring;
+            done=true;
+        }
 
-}*/
+        output_file << inbuf << std::endl;
+    }
+
+    output_file.close();
+    input_file.close();
+
+    const char * p = fileName.c_str();
+    remove(p);
+    rename("result.txt", p);
+
+    return done;
+}
 

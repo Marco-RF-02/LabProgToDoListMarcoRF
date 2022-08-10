@@ -36,7 +36,7 @@ public:
   //  TodoItem findTodoById(const std::vector<TodoItem>& vect, int id);
     bool isDigits(const std::string &str);
   //  std::string completedStatus(bool input);
-  //bool changeCompletedStatus(std::string parsedLine,std::string newparsedline);
+  bool changeCompletedStatus(const std::string& parsedLine,const std::string& newparsedline);
 
 private:
      std::string fileName;

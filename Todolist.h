@@ -8,6 +8,7 @@
 #include <memory>
 #include <list>
 #include "TodoItem.h"
+#include "FileController.h"
 
 class Todolist {
 
@@ -16,6 +17,9 @@ public:
     explicit Todolist(const std::list<TodoItem> &todoitemsList);
     TodoItem getTodoToDelete(int num);
     void printTodoItemList();
+    bool findByParsedLine(std::string parsedline,std::string opparsedline,FileController fileController);
+    int countCompleted();
+    int countNotCompleted();
 
 
 private:

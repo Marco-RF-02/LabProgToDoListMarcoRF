@@ -10,7 +10,7 @@ class Date {
 public:
     Date(int day, int month, int year);
 
-    Date();
+    Date() = default;
 
     Date deparseDate(const std::string& parsedDate);
 

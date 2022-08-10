@@ -3,6 +3,7 @@
 //
 
 #include "Todolist.h"
+#include "FileController.h"
 #include <iostream>
 
 Todolist::Todolist(const std::list<TodoItem> &todoitemsList) : todoitemsList(todoitemsList) {}
@@ -54,5 +55,48 @@ TodoItem Todolist::getTodoToDelete(int num) {
     }
     return TodoItem();
 }
+
+bool Todolist::findByParsedLine(std::string parsedline,std::string opparsedline, FileController fileController) {
+    bool f= false;
+
+    for(const auto& itr : todoitemsList){
+        std::string line=fileController.parseLine(itr.getTitle(),
+                                                  std::to_string(itr.isCompleted()),
+                                                  itr.getDescription(),
+                                                  fileController.parseDate(itr.getDate().getDay(),
+                                                                           itr.getDate().getMonth(),
+                                                                           itr.getDate().getYear()),
+                                                  itr.getCategory());
+        if(line==parsedline|| line==opparsedline){
+            f= true;
+        }
+
+    }
+
+    return f;
+}
+
+int Todolist::countCompleted() {
+    int i=0;
+    for(const auto& itr : todoitemsList){
+        if(itr.isCompleted())
+            i++;
+        }
+    return i;
+}
+
+int Todolist::countNotCompleted() {
+    int i=0;
+    for(const auto& itr : todoitemsList){
+        if(!itr.isCompleted())
+            i++;
+    }
+    return i;
+
+}
+
+
+
+
 
 
