@@ -27,7 +27,6 @@ private:
 public:
     const std::list<TodoItem> &getTodoitemsList() const;
 
-    void setTodoitemsList(const std::list<TodoItem> &todoitemsList);
 };
 
 

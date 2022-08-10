@@ -3,7 +3,6 @@
 //
 
 #include "Todolist.h"
-#include "FileController.h"
 #include <iostream>
 
 Todolist::Todolist(const std::list<TodoItem> &todoitemsList) : todoitemsList(todoitemsList) {}
@@ -40,9 +39,6 @@ const std::list<TodoItem> &Todolist::getTodoitemsList() const {
     return todoitemsList;
 }
 
-void Todolist::setTodoitemsList(const std::list<TodoItem> &todoitemsList) {
-    Todolist::todoitemsList = todoitemsList;
-}
 
 TodoItem Todolist::getTodoToDelete(int num) {
     int c=0;

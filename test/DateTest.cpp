@@ -12,3 +12,10 @@ TEST(Date, checkDateTest) {
     ASSERT_EQ(true, date.checkDate(9,8,2022));
 }
 
+TEST(Date, deparseDateTest) {
+    Date dateobj;
+    Date date=dateobj.deparseDate("1^1^1111");
+    ASSERT_EQ(1,date.getDay());
+    ASSERT_EQ(1,date.getMonth());
+    ASSERT_EQ(1111,date.getYear());
+}

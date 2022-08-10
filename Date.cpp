@@ -35,13 +35,14 @@ void Date::setYear(int year) {
 
 bool Date::checkDate(int day, int month, int year) {
     //get current date
-    time_t theTime =time(NULL);
+    time_t theTime =time(nullptr);
     struct tm *aTime = localtime(&theTime);
 
+    std::cout <<"Today is ";
     int cday=aTime->tm_mday;
-    std::cout << cday;
+    std::cout << cday <<"/";
     int cmonth=aTime->tm_mon+1;//month is 0 - 11, add 1 to get a jan - dec 1-12 conversion
-    std::cout << cmonth;
+    std::cout << cmonth<<"/";
     int cyear=aTime->tm_year+1900;//year is # years since 1900;
     std::cout << cyear;
 
@@ -85,13 +86,12 @@ bool Date::checkDate(int day, int month, int year) {
     return false;
 }
 
-Date Date::deparseDate(const std::string& parsedDate) {
+Date Date::deparseDate(const std::string& parsedDate) {  // deparse date to adapt it to int format
 
     Date date;
 
     std::stringstream test(parsedDate);
     std::string segment;
-
 
     std::getline(test, segment, '^');
     date.setDay(std::stoi(segment));

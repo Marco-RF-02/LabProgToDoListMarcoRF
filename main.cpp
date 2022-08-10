@@ -15,167 +15,6 @@ std::string removeSpaces(std::string input) // this func is used to remove space
     input.erase(std::remove(input.begin(),input.end(),'\t'),input.end());// remove tabs
     return input;
 }
-/*
-void printTodoList(const std::vector<TodoItem>& vect, FileController fileController){  // print todoitemvector
-
-    for(auto & i : vect)
-    {
-        std::cout<< "["<<i.getId()<< "] - ";
-        std::cout<<i.getTitle()<<std::endl;
-        std::cout<<"Completed: "<<fileController.completedStatus(i.isCompleted())<<std::endl;
-        std::cout<<i.getDescription()<<std::endl;
-        std::cout<<"---------------------"<<std::endl;
-    }
-    std::cout<<"---------------------"<<std::endl;
-}
-
-std::string getInputText() { // this is used to control various wrong inputs from user
-    std::string input;
-    while(input.empty() || input[0]==' '||input[0]=='\t' || input.find_first_not_of(' ')==std::string::npos || input.find_first_not_of('\t')==std::string::npos) {
-        getline(std::cin, input);
-    }
-    return input;
-}
-
-void addTodoItem(FileController fileController){ // add new todoitem
-    std::string parsedline;
-    std::string title;
-    std::string description;
-
-    //Ask input details
-
-    std::cout<<"Insert new todo "<<std::endl;
-
-    std::cout<<"Insert title: "<<std::endl;
-    title=getInputText();
-
-    std::cout<<"Insert description: "<<std::endl;
-    description=getInputText();
-
-    //parsing line before writing into the text file
-    parsedline = fileController.parseLine(fileController.getNextId(fileController.readFile()),title, std::to_string(0),description);
-
-    //adding to the txtfile
-    fileController.writeToFile(parsedline);
-
-    std::cout<<"---------------------"<<std::endl;
-}
-
-void deleteTodo(FileController fileController){
-    std::string input;
-    // print the todolist in order to decide what to delete
-    std::cout << "What do you want to delete ?" << std::endl;
-    std::vector<TodoItem> vect;
-    vect = fileController.readFile();
-    printTodoList(vect, fileController);
-
-
-
-    // ask for the id
-    std::cout << "Insert the id of the todo you want to delete: " << std::endl;
-    input = getInputText();
-
-    if(fileController.isDigits(input)) {
-        //find item to delete
-        TodoItem todoItem;
-        todoItem = fileController.findTodoById(fileController.readFile(), stoi(input));
-
-        //check if it is found
-        if (todoItem.getDescription().empty() && todoItem.getTitle().empty() && todoItem.isCompleted() == 0) {
-            std::cout << "todo not found" << std::endl;
-        } else {
-
-            //delete
-            fileController.eraseFileLine(
-                    fileController.parseLine(std::to_string(todoItem.getId()), todoItem.getTitle(),
-                                             std::to_string(todoItem.isCompleted()),
-                                             todoItem.getDescription()));
-        }
-    }else{
-        std::cerr << "input not valid. . ." << std::endl;
-    }
-    std::cout<<"---------------------"<<std::endl;
-}
-
-void changeCompletedStatus(FileController fileController){
-    std::string input;
-    std::cout << "Which todo needs to change its (completed) status?" << std::endl;
-    std::vector<TodoItem> vect;
-    vect = fileController.readFile();
-    printTodoList(vect,fileController);
-
-    // ask for the id
-    std::cout << "Insert the id of the todo you want to change the (completed) status of: " << std::endl;
-    input = getInputText();
-    input = removeSpaces(input);
-
-    if(fileController.isDigits(input)) {
-        //find item to modify its status
-        TodoItem todoItem;
-        todoItem = fileController.findTodoById(fileController.readFile(), stoi(input));
-
-        //check if it is found
-        if (todoItem.getDescription().empty() && todoItem.getTitle().empty() && todoItem.isCompleted() == 0) {
-            std::cout << "todo not found" << std::endl;
-        } else {
-            // a new todoitem is added with same specs of the one which needs to be changed,
-            // but with different completed status
-
-            std::string parsedline;
-            std::string inpCompStatus;
-            std::cout << "insert completed status " << std:: endl;
-            std::cout << "[0] Todo not Completed" << std:: endl;
-            std::cout << "[1] Todo Completed" << std:: endl;
-            inpCompStatus = getInputText();
-            inpCompStatus = removeSpaces(inpCompStatus);
-
-            if(fileController.isDigits(inpCompStatus)) {
-                if(inpCompStatus=="0"||inpCompStatus=="1") {
-
-                    //delete the old todoitem
-                    fileController.eraseFileLine(
-                            fileController.parseLine(std::to_string(todoItem.getId()), todoItem.getTitle(),
-                                                     std::to_string(todoItem.isCompleted()),
-                                                     todoItem.getDescription()));
-
-                    parsedline = fileController.parseLine(std::to_string(todoItem.getId()),
-                                                          todoItem.getTitle(), inpCompStatus, todoItem.getDescription());
-                    fileController.writeToFile(parsedline);
-
-                }else{
-                    std::cerr << "input not valid. . ." << std::endl;
-                }
-            }else{
-                std::cerr << "input not valid. . ." << std::endl;
-            }
-        }
-    }else{
-        std::cerr << "input not valid. . ." << std::endl;
-    }
-    std::cout<<"---------------------"<<std::endl;
-}
-
-void showCompleted(FileController fileController){ //show completed todoitems
-    std::vector<TodoItem> vect;
-    vect = fileController.readCompleted();
-    printTodoList(vect,fileController);
-
-}
-
-void showNotCompleted(FileController fileController){ // show uncompleted todoitems
-    std::vector<TodoItem> vect;
-    vect = fileController.readUncompleted();
-    printTodoList(vect,fileController);
-
-}
-void showAll(FileController fileController){ // show all todoitems
-    std::vector<TodoItem> vect;
-    vect = fileController.readFile();
-    printTodoList(vect,fileController);
-
-
-}
-*/
 
 std::string getInputText() { // this is used to control various wrong inputs from user
     std::string input;
@@ -186,23 +25,26 @@ std::string getInputText() { // this is used to control various wrong inputs fro
 }
 
 Date getInputDate(){
-    int day=0, month=0, year=0;
+    int day, month, year;
     std::cout << "please enter the date in this format day month year ""d m yyyy"" (ex. 1 1 2022)" << std::endl;
     Date date;
     while(true) {
+
         std::cin >> day >> month >> year;
 
-        if (date.checkDate(day, month, year)) {
-            std::cout << " valid date "<<std::endl;
-            date.setDay(day);
-            date.setMonth(month);
-            date.setYear(year);
-            break;
 
-        } else {
-            std::cout << "Format or date not valid. try again"<<std::endl;
+          if (date.checkDate(day, month, year)) {
+              std::cout << " - The date is valid!  " << std::endl;
+              date.setDay(day);
+              date.setMonth(month);
+              date.setYear(year);
+              break;
+
+          }else {
+            std::cout << " - Format or date not valid. try again"<<std::endl;
+              std::cin.clear();
+              std::cin.ignore(1000, '\n');
         }
-
     }
     return date;
 }
@@ -298,7 +140,7 @@ void showByCategory(FileController fileController, int c){
 
 
 }
-void showByCategory(FileController fileController,std::string category,Todolist todoList){
+void showByCategory(const FileController& fileController,const std::string& category,Todolist todoList){
 
     //  std::list<std::string> categoryList = fileController.categoryList();
     //  Todolist todoList(fileController.readFile());
@@ -328,7 +170,6 @@ void deleteTodo(FileController fileController){
     std::cout << "What do you want to delete ?" << std::endl;
     Todolist todolist (fileController.readFile());
     todolist.printTodoItemList();
-   // printTodoList(vect, fileController);
 
     // ask for the id
     std::cout << "Insert the id of the todo you want to delete: " << std::endl;
