@@ -3,6 +3,7 @@
 //
 
 #include "TodoItem.h"
+#include <sstream>
 
 
 //TodoItem::TodoItem( std::string t, std::string descr,bool c): title(t),completed(c),description(descr) {}
@@ -51,3 +52,27 @@ void TodoItem::setCategory(const std::string &category) {
 TodoItem::TodoItem(const std::string &title, bool completed, const std::string &description, const Date &date,
                    const std::string &category) : title(title), completed(completed), description(description),
                                                   date(date), category(category) {}
+
+TodoItem TodoItem::deparseObjTodoItem(const std::string& line) {
+
+    std::stringstream test(line);
+    std::string segment;
+    TodoItem objtodo;
+    Date objdate;
+
+
+    // in order to read properly from file,
+    // we need to decide a specific criteria
+    std::getline(test, segment, '|');
+    objtodo.setTitle(segment);
+    std::getline(test, segment, '|');
+    objtodo.setCompleted(stoi(segment));
+    std::getline(test, segment, '|');
+    objtodo.setDescription(segment);
+    std::getline(test, segment, '|');
+    objtodo.setDate(objdate.deparseDate(segment));
+    std::getline(test, segment, '|');
+    objtodo.setCategory(segment);
+
+    return objtodo;
+}

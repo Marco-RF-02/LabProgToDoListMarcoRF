@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_subdirectory(test)
 
-set(SOURCE_FILES TodoItem.cpp TodoItem.h FileController.cpp FileController.h Date.cpp Date.h)
+set(SOURCE_FILES TodoItem.cpp TodoItem.h FileController.cpp FileController.h Date.cpp Date.h Todolist.cpp Todolist.h)
 add_executable(LabProgToDoListMarcoRF main.cpp )
 add_library(core ${SOURCE_FILES})
 target_link_libraries(LabProgToDoListMarcoRF core)

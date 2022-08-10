@@ -10,6 +10,7 @@
 #include <fstream>
 #include<memory>
 #include <vector>
+#include <list>
 
 
 class FileController {
@@ -19,12 +20,13 @@ public:
 
     void writeToFile( const std::string &dataLine);
 
+    std::list<std::string> categoryList();
     //use list instead of vect
- //   std::vector<TodoItem> readFile();
+    std::list<TodoItem> readFile();
  //   std::vector<TodoItem> readCompleted();
   //  std::vector<TodoItem> readUncompleted();
 
-    void eraseFileLine(const std::string& eraseLine);
+    bool eraseFileLine(const std::string& eraseLine);
 
     //change removing id and adding new attributes
     std::string parseLine(const std::string& title,const std::string& completed,const std::string& description, std:: string date, std::string category);
@@ -32,8 +34,10 @@ public:
     //remove id
  //   std::string getNextId(const std::vector<TodoItem>& vect);
   //  TodoItem findTodoById(const std::vector<TodoItem>& vect, int id);
-   // bool isDigits(const std::string &str);
-    std::string completedStatus(bool input);
+    bool isDigits(const std::string &str);
+  //  std::string completedStatus(bool input);
+  //bool changeCompletedStatus(std::string parsedLine,std::string newparsedline);
+
 private:
      std::string fileName;
 

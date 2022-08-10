@@ -3,7 +3,8 @@
 //
 #include <iostream>
 #include "Date.h"
-#include <time.h>
+#include <ctime>
+#include <sstream>
 
 Date::Date(int day, int month, int year) : day(day), month(month), year(year) {}
 
@@ -85,5 +86,24 @@ bool Date::checkDate(int day, int month, int year) {
 }
 
 Date::Date() {}
+
+Date Date::deparseDate(const std::string& parsedDate) {
+
+    Date date;
+
+    std::stringstream test(parsedDate);
+    std::string segment;
+
+
+    std::getline(test, segment, '^');
+    date.setDay(std::stoi(segment));
+    std::getline(test, segment, '^');
+    date.setMonth(std::stoi(segment));
+    std::getline(test, segment, '^');
+    date.setYear(std::stoi(segment));
+
+
+    return date;
+}
 
 

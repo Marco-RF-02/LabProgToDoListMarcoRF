@@ -12,6 +12,7 @@ public:
 
     Date();
 
+    Date deparseDate(const std::string& parsedDate);
 
     bool checkDate(int day, int month, int year);
 

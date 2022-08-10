@@ -11,6 +11,9 @@
 class TodoItem {
 public:
   //  TodoItem(std::string t, std::string descr, bool p = false);
+
+    TodoItem deparseObjTodoItem(const std::string& line);
+
     ~TodoItem() = default;
 
     TodoItem(const std::string &title, bool completed, const std::string &description, const Date &date,

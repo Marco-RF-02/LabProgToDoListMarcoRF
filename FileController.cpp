@@ -6,6 +6,10 @@
 #include <iostream>
 #include <vector>
 #include <sstream>
+#include "Todolist.h"
+#include <fstream>
+
+FileController::FileController(const std::string &fileName) : fileName(fileName) {}
 
 std::string FileController:: parseDate(int day, int month,int year){
     std::string parsedLine;
@@ -16,6 +20,7 @@ std::string FileController:: parseDate(int day, int month,int year){
 std::string FileController:: parseLine(const std::string& title, const std::string& completed, const std::string& description, std:: string date, std:: string category){
     std::string parsedLine;
     parsedLine=title+"|"+completed+"|"+description+"|"+date+"|"+category; // "|" is the separator
+  //  std::cout<<parsedLine;
     return parsedLine; // this method return a parsed line
 }
 
@@ -57,7 +62,37 @@ void FileController::writeToFile( const std::string& dataLine){ // this method i
 
 
 
-FileController::FileController(const std::string &fileName) : fileName(fileName) {}
+
+
+
+std::list<TodoItem> FileController::readFile() { // method used to read from file and put the various todoitems into a vector
+
+         std::fstream myFile;
+         myFile.open(fileName,std::ios::in ); // file gets opened in input mode
+         std::list<TodoItem> todoList;
+         Date date;
+
+         if (myFile.fail()){ // control over the file opening success
+             std::cerr <<"Error occurred while opening the file..."<<std::endl;
+             exit(1);
+         }
+         if (myFile.is_open()){
+             std::string line;
+             while(std::getline(myFile,line)){
+
+                 if(!line.empty()) {
+                     TodoItem objtodo;
+                     objtodo = objtodo.deparseObjTodoItem(line);
+
+                     todoList.push_back(objtodo); // after receiving all info, the object is pushed into the list
+                 }
+             }
+             myFile.close(); // close the file
+         }
+         return todoList;
+}
+
+
 
 /*
 std::vector<TodoItem> FileController::readFile() { // method used to read from file and put the various todoitems into a vector
@@ -186,6 +221,7 @@ std::vector<TodoItem> FileController::readUncompleted() { // read only uncomplet
 }
 */
 
+/*
 
 void FileController::eraseFileLine( const std::string &eraseLine) { // method used to erase a chosen line from a text file
     std::string line;
@@ -210,6 +246,7 @@ void FileController::eraseFileLine( const std::string &eraseLine) { // method us
     remove(p);
     rename("temp.txt", p);
 }
+*/
 
 /*
 TodoItem FileController::findTodoById(const std::vector<TodoItem>& vect, int id) { // find todoitem by using its id
@@ -225,13 +262,37 @@ TodoItem FileController::findTodoById(const std::vector<TodoItem>& vect, int id)
     return todoItem;
 }
 */
-/*
+
 bool FileController:: isDigits(const std::string &str) // this method controls if user is writing only numbers
 {
     return str.find_first_not_of("0123456789") == std::string::npos;
 }
-*/
 
+
+std::list<std::string> FileController::categoryList() {
+
+    std::list<std::string> categoryList;
+    Todolist todolist (readFile());
+
+    bool f ;
+    for(const auto& itr : todolist.getTodoitemsList()){
+        f=true;
+            for(const auto& i : categoryList) {
+                if(itr.getCategory() == i) {
+                    f = false;
+                }
+            }
+        if(f){
+            categoryList.push_back(itr.getCategory());
+        }
+
+    }
+
+    return categoryList;
+}
+
+
+/*
 std::string FileController::completedStatus(bool completed){ // this method is used just for graphical purpose
     std::string compStat="not found";
     if(!completed){
@@ -242,4 +303,53 @@ std::string FileController::completedStatus(bool completed){ // this method is u
     }
     return compStat;
 }
+*/
+
+bool FileController::eraseFileLine( const std::string &eraseLine) { // method used to erase a chosen line from a text file
+    bool done= false;
+    std::string line;
+    std::ifstream fin;
+
+    fin.open(fileName);
+    // contents of path must be copied to a temp file then
+    // renamed back to the path file
+    std::ofstream temp;
+    temp.open("temp.txt");
+
+    while (getline(fin, line)) {
+        // write all lines to temp other than the line marked for erasing
+        if (line != eraseLine) {
+            temp << line << std::endl;
+
+        }else{
+            done=true;
+        }
+    }
+
+    temp.close();
+    fin.close();
+
+    // required conversion for remove and rename functions
+    const char * p = fileName.c_str();
+    remove(p);
+    rename("temp.txt", p);
+
+    if(!done){
+        std::cerr << "Not Found. . . \n";
+    }
+    return done;
+}
+
+/*
+bool FileController::changeCompletedStatus(std::string parsedLine, std::string newParsedLine) {
+  bool done= false;
+
+
+    openFile >> ExampleText;
+    openFile.replace(Example, "Hello");// the path of the file
+    ReadFile(openFile, Example);
+
+        return done;
+
+}*/
 
