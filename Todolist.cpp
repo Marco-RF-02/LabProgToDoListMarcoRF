@@ -40,6 +40,7 @@ const std::list<TodoItem> &Todolist::getTodoitemsList() const {
 }
 
 
+
 TodoItem Todolist::getTodoToDelete(int num) {
     int c=0;
     for(const auto& itr : todoitemsList){
@@ -52,7 +53,7 @@ TodoItem Todolist::getTodoToDelete(int num) {
     return TodoItem();
 }
 
-bool Todolist::findByParsedLine(std::string parsedline,std::string opparsedline, FileController fileController) {
+bool Todolist::findByParsedLine(const std::string& parsedline,const std::string& opparsedline, FileController fileController) {
     bool f= false;
 
     for(const auto& itr : todoitemsList){
@@ -91,8 +92,7 @@ int Todolist::countNotCompleted() {
 
 }
 
-
-
-
-
+void Todolist::setTodoitemsList(const std::list<TodoItem> &todoitemsList) {
+    Todolist::todoitemsList = todoitemsList;
+}
 

@@ -17,15 +17,18 @@ public:
     explicit Todolist(const std::list<TodoItem> &todoitemsList);
     TodoItem getTodoToDelete(int num);
     void printTodoItemList();
-    bool findByParsedLine(std::string parsedline,std::string opparsedline,FileController fileController);
+    bool findByParsedLine(const std::string& parsedline,const std::string& opparsedline,FileController fileController);
     int countCompleted();
     int countNotCompleted();
+    const std::list<TodoItem> &getTodoitemsList() const;
 
+    Todolist() = default;
+
+    void setTodoitemsList(const std::list<TodoItem> &todoitemsList);
 
 private:
     std::list<TodoItem> todoitemsList;
-public:
-    const std::list<TodoItem> &getTodoitemsList() const;
+
 
 };
 

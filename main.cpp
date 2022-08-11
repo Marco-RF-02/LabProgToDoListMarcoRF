@@ -140,28 +140,6 @@ void showByCategory(FileController fileController, int c){
 
 
 }
-void showByCategory(const FileController& fileController,const std::string& category,Todolist todoList){
-
-    //  std::list<std::string> categoryList = fileController.categoryList();
-    //  Todolist todoList(fileController.readFile());
-
-
-        std::cout<<"________________________________________"<<std::endl;
-        std::cout<<"Category: "<<category<<std::endl;
-        std::cout<<"________________________________________"<<std::endl;
-        for(const auto& i : todoList.getTodoitemsList()) {
-            if(category == i.getCategory()) {
-
-                std::cout<<i.getTitle()<<std::endl;
-                std::cout<<i.getDescription()<<std::endl;
-                std::cout<<i.getDate().getDay()<<" "<<i.getDate().getMonth()<< " "<<i.getDate().getYear() <<std::endl;
-                std::cout<<"completed: "<<todoList.completedStatus(i.isCompleted())<<std::endl;
-                std::cout<<".........."<<std::endl;
-
-            }
-        }
-
-}
 
 void deleteTodo(FileController fileController){
 
@@ -277,7 +255,7 @@ int main() {
 
     std::string command;
     std::string input;
-    std::string file="TodoTextFile.txt";
+    std::string file  = "TodoTextFile.txt";
     FileController fileController(file);
     bool menu = true;
 
