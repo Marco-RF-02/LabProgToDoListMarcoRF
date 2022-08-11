@@ -6,9 +6,6 @@
 #include <sstream>
 
 
-//TodoItem::TodoItem( std::string t, std::string descr,bool c): title(t),completed(c),description(descr) {}
-
-
 const std::string &TodoItem::getTitle() const {
     return title;
 }

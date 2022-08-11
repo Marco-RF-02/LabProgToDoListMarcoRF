@@ -10,7 +10,6 @@
 
 class TodoItem {
 public:
-  //  TodoItem(std::string t, std::string descr, bool p = false);
 
     TodoItem deparseObjTodoItem(const std::string& line);
 
@@ -47,7 +46,6 @@ private:
     std::string description;
     Date date;
     std::string category;
-
 
 };
 

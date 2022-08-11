@@ -109,7 +109,6 @@ void showByCategory(FileController fileController, int c){
                     std::cout << i.getDescription() << std::endl;
                     std::cout << i.getDate().getDay() << " " << i.getDate().getMonth() << " " << i.getDate().getYear()
                               << std::endl;
-                 //   std::cout << "completed: " << todoList.completedStatus(i.isCompleted()) << std::endl;
                     std::cout << ".........." << std::endl;
                 }
                 if(!i.isCompleted()&& c==0){
@@ -117,7 +116,6 @@ void showByCategory(FileController fileController, int c){
                     std::cout << i.getDescription() << std::endl;
                     std::cout << i.getDate().getDay() << " " << i.getDate().getMonth() << " " << i.getDate().getYear()
                               << std::endl;
-                 //   std::cout << "completed: " << todoList.completedStatus(i.isCompleted()) << std::endl;
                     std::cout << ".........." << std::endl;
                 }
                 if(c==2){

@@ -29,7 +29,6 @@ public:
 private:
     std::list<TodoItem> todoitemsList;
 
-
 };
 
 
