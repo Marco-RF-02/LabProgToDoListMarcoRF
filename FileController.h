@@ -7,6 +7,8 @@
 
 #include<string>
 #include"TodoItem.h"
+#include "Todolist.h"
+
 #include <fstream>
 #include<memory>
 #include <vector>
@@ -33,6 +35,7 @@ public:
     std::string parseDate(int day,int month, int year);
     bool isDigits(const std::string &str);
     bool changeCompletedStatus(const std::string& parsedLine,const std::string& newparsedline);
+    void writeFile(std::list<TodoItem> todolist);
 
 private:
      std::string fileName;

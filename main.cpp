@@ -69,18 +69,17 @@ void addTodoItem(FileController fileController){ // add new todoitem
     std::cout<<"Insert category: "<<std::endl;
     category =getInputText();
 
-
-    //parsing line before writing into the text file
-    parsedline = fileController.parseLine(title, std::to_string(0),description,fileController.parseDate(date.getDay(),date.getMonth(),date.getYear()),category);
-    std::string opparsedline = fileController.parseLine(title, std::to_string(1),description,fileController.parseDate(date.getDay(),date.getMonth(),date.getYear()),category);
+    TodoItem toadd(title,0,description,date,category);
+    TodoItem toaddopp(title,1,description,date,category);
 
     //check if already added
     Todolist todolist(fileController.readFile());
-    if(todolist.findByParsedLine(parsedline,opparsedline,fileController)){
+    if(todolist.findTodoItem(toadd) || todolist.findTodoItem(toaddopp)){
         std::cout << "Cannot fulfill the request, Sorry! the todo you want to add is already saved.  " << std::endl;
     }else {
         //adding to the txtfile
-        fileController.writeToFile(parsedline);
+        todolist.addToList(toadd);
+        fileController.writeFile(todolist.getTodoitemsList());
     }
     std::cout<<"---------------------"<<std::endl;
 }
@@ -155,22 +154,14 @@ void deleteTodo(FileController fileController){
         todoItem = todolist.getTodoToDelete( stoi(input));
 
         //check if it is found
-        if (todoItem.getDescription().empty() && todoItem.getTitle().empty() && todoItem.isCompleted() == 0 && todoItem.getCategory().empty()) {
-            std::cout << "sorry, todo not found" << std::endl;
+        if(!todolist.findTodoItem(todoItem)){
+
+             std::cout << "sorry, todo not found" << std::endl;
 
         } else {
+            todolist.deleteFromList(todoItem);
+            fileController.writeFile(todolist.getTodoitemsList());
 
-            //delete
-            bool done = fileController.eraseFileLine(
-                    fileController.parseLine( todoItem.getTitle(),
-                                             std::to_string(todoItem.isCompleted()),
-                                             todoItem.getDescription(),
-                                             fileController.parseDate(todoItem.getDate().getDay(),
-                                                                      todoItem.getDate().getMonth(),
-                                                                      todoItem.getDate().getYear()),
-                                                                      todoItem.getCategory()));
-            if(done)
-                std::cout<<"Deleting Todo -> Done!"<<std::endl;
         }
     }else{
         std::cerr << "input not valid. . ." << std::endl;

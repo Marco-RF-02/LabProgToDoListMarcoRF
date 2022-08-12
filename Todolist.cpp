@@ -53,7 +53,7 @@ TodoItem Todolist::getTodoToDelete(int num) {
     }
     return TodoItem();
 }
-
+/*
 bool Todolist::findByParsedLine(const std::string& parsedline,const std::string& opparsedline, FileController fileController) {
     bool f = false;
 
@@ -73,7 +73,7 @@ bool Todolist::findByParsedLine(const std::string& parsedline,const std::string&
 
     return f;
 }
-
+*/
 int Todolist::countCompleted() {
     int i = 0;
     for(const auto& itr : todoitemsList){

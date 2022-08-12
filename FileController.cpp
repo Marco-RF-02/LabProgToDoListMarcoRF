@@ -5,6 +5,7 @@
 #include "FileController.h"
 #include <iostream>
 #include "Todolist.h"
+#include <list>
 
 FileController::FileController(const std::string &fileName) : fileName(fileName) {}
 
@@ -127,6 +128,34 @@ bool FileController::eraseFileLine( const std::string &eraseLine) { // method us
         std::cerr << "Not Found. . . \n";
     }
     return done;
+}
+
+void FileController::writeFile( std::list<TodoItem> todolist){ // this method is used to write to file
+
+    std::ofstream output_file("result.txt");
+
+    // file gets opened with append mode
+        for(const auto& itr : todolist) {
+         if (output_file.fail()) { // control over file opening success
+             std::cerr << "Error occurred while opening the file..." << std::endl;
+             exit(1);
+         }
+         if (output_file.is_open()) {
+             std::string parsedline = parseLine(itr.getTitle(), std::to_string(0),itr.getDescription(),parseDate(itr.getDate().getDay(),itr.getDate().getMonth(),itr.getDate().getYear()),itr.getCategory());
+
+             output_file << parsedline << std::endl; // writes line into file
+
+         }
+
+        }
+
+    // closing the files
+    output_file.close();
+
+    // rename the temp file and delete the old file
+    const char * p = fileName.c_str();
+    remove(p);
+    rename("result.txt", p);
 }
 
 
