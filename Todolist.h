@@ -22,6 +22,10 @@ public:
     int countNotCompleted();
     const std::list<TodoItem> &getTodoitemsList() const;
 
+    void addToList (const TodoItem&todoitem);
+    void deleteFromList ( const TodoItem& todoitem);
+    bool findTodoItem( const TodoItem& todoItem);
+
     Todolist() = default;
 
     void setTodoitemsList(const std::list<TodoItem> &todoitemsList);

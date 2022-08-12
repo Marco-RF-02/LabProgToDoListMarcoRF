@@ -70,13 +70,13 @@ bool Date::checkDate(int day, int month, int year) {
         if(day<= 30)
             return true;
     }
-    //check if valid when it's leep year
+    //check if valid when it's leap year
     if((month == 2) && (year % 4 == 0))
     {
         if(day<=29)
             return true;
     }
-    //check if valid when it's not leep year
+    //check if valid when it's not leap year
     if((month == 2) && (year % 4 != 0))
     {
         if(day<=28)
@@ -102,6 +102,40 @@ Date Date::deparseDate(const std::string& parsedDate) {  // deparse date to adap
 
 
     return date;
+}
+
+bool Date::operator==(const Date &rhs) const {
+    return day == rhs.day &&
+           month == rhs.month &&
+           year == rhs.year;
+}
+
+bool Date::operator!=(const Date &rhs) const {
+    return !(rhs == *this);
+}
+
+bool Date::operator<(const Date &rhs) const {
+    if (day < rhs.day)
+        return true;
+    if (rhs.day < day)
+        return false;
+    if (month < rhs.month)
+        return true;
+    if (rhs.month < month)
+        return false;
+    return year < rhs.year;
+}
+
+bool Date::operator>(const Date &rhs) const {
+    return rhs < *this;
+}
+
+bool Date::operator<=(const Date &rhs) const {
+    return !(rhs < *this);
+}
+
+bool Date::operator>=(const Date &rhs) const {
+    return !(*this < rhs);
 }
 
 

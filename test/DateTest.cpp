@@ -8,8 +8,9 @@
 
 TEST(Date, checkDateTest) {
     Date date;
-    ASSERT_EQ(false,date.checkDate(1,1,2022));
-    ASSERT_EQ(true, date.checkDate(23,8,2023));
+    ASSERT_FALSE(date.checkDate(1,1,2022));
+    ASSERT_FALSE( date.checkDate(31,6,2023));
+    ASSERT_TRUE(date.checkDate(2,2,2023));
 }
 
 TEST(Date, deparseDateTest) {

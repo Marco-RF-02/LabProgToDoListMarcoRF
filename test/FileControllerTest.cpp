@@ -19,11 +19,11 @@ TEST(FileController, parseDateTest) {
 TEST(FileController, isDigitsTest) {
 
 FileController fileController("test");
-    ASSERT_EQ(true,fileController.isDigits("123"));
+    ASSERT_TRUE(fileController.isDigits("123"));
 
 }
 
 TEST(FileController, eraseFileLineTest) {
     FileController fileController("test");
-    ASSERT_EQ(false,fileController.eraseFileLine("Line"));
+    ASSERT_FALSE(fileController.eraseFileLine("Line"));
 }

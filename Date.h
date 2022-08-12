@@ -28,6 +28,18 @@ public:
 
     void setYear(int year);
 
+    bool operator==(const Date &rhs) const;
+
+    bool operator!=(const Date &rhs) const;
+
+    bool operator<(const Date &rhs) const;
+
+    bool operator>(const Date &rhs) const;
+
+    bool operator<=(const Date &rhs) const;
+
+    bool operator>=(const Date &rhs) const;
+
 private:
 int day{};
 int month{};

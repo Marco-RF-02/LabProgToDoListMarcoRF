@@ -72,3 +72,48 @@ TodoItem TodoItem::deparseObjTodoItem(const std::string& line) {
 
     return objtodo;
 }
+
+bool TodoItem::operator==(const TodoItem &rhs) const {
+    return completed == rhs.completed &&
+           title == rhs.title &&
+           completed == rhs.completed &&
+           description == rhs.description &&
+           date == rhs.date &&
+           category == rhs.category;
+}
+
+bool TodoItem::operator!=(const TodoItem &rhs) const {
+    return !(rhs == *this);
+}
+
+bool TodoItem::operator<(const TodoItem &rhs) const {
+    if (title < rhs.title)
+        return true;
+    if (rhs.title < title)
+        return false;
+    if (completed < rhs.completed)
+        return true;
+    if (rhs.completed < completed)
+        return false;
+    if (description < rhs.description)
+        return true;
+    if (rhs.description < description)
+        return false;
+    if (date < rhs.date)
+        return true;
+    if (rhs.date < date)
+        return false;
+    return category < rhs.category;
+}
+
+bool TodoItem::operator>(const TodoItem &rhs) const {
+    return rhs < *this;
+}
+
+bool TodoItem::operator<=(const TodoItem &rhs) const {
+    return !(rhs < *this);
+}
+
+bool TodoItem::operator>=(const TodoItem &rhs) const {
+    return !(*this < rhs);
+}

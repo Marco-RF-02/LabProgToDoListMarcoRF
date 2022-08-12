@@ -40,6 +40,18 @@ public:
 
     void setCategory(const std::string &category);
 
+    bool operator<(const TodoItem &rhs) const;
+
+    bool operator>(const TodoItem &rhs) const;
+
+    bool operator<=(const TodoItem &rhs) const;
+
+    bool operator>=(const TodoItem &rhs) const;
+
+    bool operator==(const TodoItem &rhs) const;
+
+    bool operator!=(const TodoItem &rhs) const;
+
 private:
     std::string title;
     bool completed;

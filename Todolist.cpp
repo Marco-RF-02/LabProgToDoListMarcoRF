@@ -4,6 +4,7 @@
 
 #include "Todolist.h"
 #include <iostream>
+#include <algorithm>
 
 Todolist::Todolist(const std::list<TodoItem> &todoitemsList) : todoitemsList(todoitemsList) {}
 
@@ -96,3 +97,16 @@ void Todolist::setTodoitemsList(const std::list<TodoItem> &todoitemsList) {
     Todolist::todoitemsList = todoitemsList;
 }
 
+void Todolist:: deleteFromList( const TodoItem& todoitem) {
+    todoitemsList.remove(todoitem);
+}
+
+void Todolist::addToList(const TodoItem &todoitem) {
+    todoitemsList.push_back(todoitem);
+}
+
+bool Todolist::findTodoItem(const TodoItem& todoItem) {
+
+    bool found = std::find(todoitemsList.begin(), todoitemsList.end(), todoItem) != todoitemsList.end();
+    return found;
+}
