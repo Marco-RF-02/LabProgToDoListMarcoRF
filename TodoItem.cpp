@@ -57,7 +57,6 @@ TodoItem TodoItem::deparseObjTodoItem(const std::string& line) {
     TodoItem objtodo;
     Date objdate;
 
-
     // in order to read properly from file,
     // we need to decide a specific criteria
     std::getline(test, segment, '|');

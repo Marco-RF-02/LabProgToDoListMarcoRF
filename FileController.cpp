@@ -44,7 +44,7 @@ std::list<TodoItem> FileController::readFile() { // method used to read from fil
          std::fstream myFile;
          myFile.open(fileName,std::ios::in ); // file gets opened in input mode
          std::list<TodoItem> todoList;
-         Date date;
+
 
          if (myFile.fail()){ // control over the file opening success
              std::cerr <<"Error occurred while opening the file..."<<std::endl;

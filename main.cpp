@@ -32,14 +32,12 @@ Date getInputDate(){
 
         std::cin >> day >> month >> year;
 
-
           if (date.checkDate(day, month, year)) {
               std::cout << " - The date is valid!  " << std::endl;
               date.setDay(day);
               date.setMonth(month);
               date.setYear(year);
               break;
-
           }else {
             std::cout << " - Format or date not valid. try again"<<std::endl;
               std::cin.clear();

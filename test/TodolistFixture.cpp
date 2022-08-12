@@ -14,9 +14,9 @@ protected:
         TodoItem todo;
 
         for(int i = 0; i< 5; i++){
-            date.setDay(1+i);
-            date.setMonth(1+i);
-            date.setYear(2025+i);
+            date.setDay(1 + i);
+            date.setMonth(1 + i);
+            date.setYear(2025 + i);
             todo.setTitle("title"+ std::to_string(i));
             todo.setCompleted(false);
             todo.setDescription("description"+ std::to_string(i));

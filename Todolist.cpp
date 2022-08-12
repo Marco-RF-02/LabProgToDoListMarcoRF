@@ -19,7 +19,7 @@ std::string Todolist::completedStatus(bool completed){ // this method is used ju
 }
 
 void Todolist::printTodoItemList() {
-    int c=0;
+    int c = 0;
     for(const auto& itr : todoitemsList){
         std::cout<<c<<" - "<<itr.getTitle()<<std::endl;
         std::cout<<"Completed: "<<completedStatus(itr.isCompleted())<<std::endl;
@@ -42,9 +42,9 @@ const std::list<TodoItem> &Todolist::getTodoitemsList() const {
 
 
 TodoItem Todolist::getTodoToDelete(int num) {
-    int c=0;
+    int c = 0;
     for(const auto& itr : todoitemsList){
-        if(c==num){
+        if(c == num){
             TodoItem todo(itr.getTitle(),itr.isCompleted(),itr.getDescription(),itr.getDate(),itr.getCategory());
             return todo;
         }
@@ -54,10 +54,10 @@ TodoItem Todolist::getTodoToDelete(int num) {
 }
 
 bool Todolist::findByParsedLine(const std::string& parsedline,const std::string& opparsedline, FileController fileController) {
-    bool f= false;
+    bool f = false;
 
     for(const auto& itr : todoitemsList){
-        std::string line=fileController.parseLine(itr.getTitle(),
+        std::string line = fileController.parseLine(itr.getTitle(),
                                                   std::to_string(itr.isCompleted()),
                                                   itr.getDescription(),
                                                   fileController.parseDate(itr.getDate().getDay(),
@@ -74,7 +74,7 @@ bool Todolist::findByParsedLine(const std::string& parsedline,const std::string&
 }
 
 int Todolist::countCompleted() {
-    int i=0;
+    int i = 0;
     for(const auto& itr : todoitemsList){
         if(itr.isCompleted())
             i++;
@@ -83,7 +83,7 @@ int Todolist::countCompleted() {
 }
 
 int Todolist::countNotCompleted() {
-    int i=0;
+    int i = 0;
     for(const auto& itr : todoitemsList){
         if(!itr.isCompleted())
             i++;
